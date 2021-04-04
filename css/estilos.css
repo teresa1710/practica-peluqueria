@@ -9,8 +9,7 @@ body {
     font-size: 16px;
 }
 
-.main .opciones,
-.main .servicios {
+.main .opciones {
     margin: 50px;
 }
 
@@ -34,3 +33,18 @@ body {
     width: 98%;
 }
 
+
+.main .servicios .titulo h2{
+    overflow: hidden;
+    text-align: center;
+}
+
+.main .servicios .titulo p{
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.main .servicios .tipos-servicio a{
+    margin-bottom: 20px;
+    width: 98%;
+}
