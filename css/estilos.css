@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: "Open Sans", Arial, Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}
+
+.main .opciones,
+.main .servicios {
+    margin: 50px;
+}
+
+.main .opciones .titulo h2{
+    overflow: hidden;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.main .opciones .botones {
+    align-items: center;
+}
+
+.main .opciones .boton-centrado{
+    width: 33.33%;
+    display: flex;
+    justify-content: center
+}
+
+.main .opciones .boton-centrado button{
+    width: 98%;
+}
+
