@@ -53,3 +53,26 @@ body {
 .main .resumen{
     display: none;
 }
+
+.main .servicio {
+    background-color: #468FF9;
+    margin: 20px;
+    padding: 15px;
+    border-radius: 20px;
+}
+
+.main .servicio .nombre-servicio{
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+}
+
+.main .servicio .precio-servicio {
+    color: #fff;
+    font-size: 30px;
+    text-align: center;
+}
+
+.main .servicios .seleccionado {
+    background-color: #000E83;
+}
