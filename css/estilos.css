@@ -50,7 +50,8 @@ body {
 }
 
 .main .cita,
-.main .resumen{
+.main .resumen,
+.main .servicios{
     display: none;
 }
 
@@ -75,4 +76,12 @@ body {
 
 .main .servicios .seleccionado {
     background-color: #000E83;
+}
+
+.main .mostrar-seccion {
+    display: block!important;
+}
+
+.main .actual {
+    background-color: #1605b3;
 }

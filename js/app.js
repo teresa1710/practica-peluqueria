@@ -1,10 +1,51 @@
+let pagina = 1;
+
 document.addEventListener('DOMContentLoaded', function(){
     iniciarApp();
 });
 
 function iniciarApp(){
-    console.log('Iniciando app');
     mostrarServicios();
+
+    //Resalta el div actual segun el que se presiona
+    mostrarSeccion();
+
+    //Oculta o muestra una sección segun el tal que se presiona
+    cambiarSeccion();
+}
+
+function mostrarSeccion(){
+    const seccionActual = document.querySelector(`#paso-${pagina}`);
+    seccionActual.classList.add('mostrar-seccion');
+
+    const tab = document.querySelector(`[data-paso="${pagina}"]`);
+    tab.classList.add('actual');
+}
+
+function cambiarSeccion(){
+    const enlaces = document.querySelectorAll('.botones button');
+
+    enlaces.forEach(enlace => {
+        enlace.addEventListener('click', e =>{
+            e.preventDefault();
+            
+            pagina = parseInt(e.target.dataset.paso);
+
+            //Elimina mostrar-seccion de la sección anterior
+            document.querySelector('.mostrar-seccion').classList.remove('mostrar-seccion');
+            
+            //Agrega mostrar-seccion donde dimos click
+            const seccion = document.querySelector(`#paso-${pagina}`);
+            seccion.classList.add('mostrar-seccion');
+
+            //Elimina la clase de actual en el tab anterior
+            document.querySelector('.botones .actual').classList.remove('actual');
+
+            //Agrega la clase de actual en el nuevo tab
+            const tab= document.querySelector(`[data-paso="${pagina}"]`);
+            tab.classList.add('actual');
+        })
+    })
 }
 
 async function mostrarServicios(){
@@ -85,3 +126,4 @@ function seleccionarServicio(e){
         elemento.classList.add('seleccionado');
     }
 }
+
