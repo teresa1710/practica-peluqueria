@@ -23,10 +23,10 @@ body {
     align-items: center;
 }
 
-.main .opciones .boton-centrado{
-    width: 33.33%;
+.main .servicios .listado-servicios{
     display: flex;
-    justify-content: center
+    align-items: center;
+    justify-content: center;
 }
 
 .main .opciones .boton-centrado button{
@@ -84,4 +84,51 @@ body {
 
 .main .actual {
     background-color: #1605b3;
+}
+
+.main .paginacion button {
+    margin-bottom: 3rem;
+    background: rgb(3, 184, 255); 
+    border: none;
+    font-size: 2rem;
+    color: #000;
+    
+    font-weight: bold;
+}
+.main .paginacion button:hover{
+    background: rgb(49, 3, 255); 
+    color: #fff;
+    font-weight: bold;
+}
+
+.main .paginacion .as-centrado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main .paginacion .anterior,
+.main .paginacion .siguiente {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main .paginacion .ocultar{
+    visibility: hidden;
+}
+
+.main .cita .titulo p{
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 50px;
+}
+
+.main .cita form{
+    margin-bottom: 50px;
+}
+
+.main .invalidar-cita{
+    text-align: center;
+    font-size: 25px;
 }

@@ -1,5 +1,13 @@
 let pagina = 1;
 
+const cita= {
+    nombre: '',
+    fecha: '',
+    hora: '',
+    servicios: []
+
+}
+
 document.addEventListener('DOMContentLoaded', function(){
     iniciarApp();
 });
@@ -12,14 +20,73 @@ function iniciarApp(){
 
     //Oculta o muestra una sección segun el tal que se presiona
     cambiarSeccion();
+
+    //Paginación
+    paginaSiguiente();
+
+    paginaAnterior();
+
+    //Comprueba pagina actual para ocultar o mostrar la paginación
+     
+    botonesPaginador();
+
+    //Resumen de la cita verificacion de vacio
+    mostrarResumen();
+
 }
 
 function mostrarSeccion(){
+    const seccionAnterior = document.querySelector('.mostrar-seccion');
+
+    if(seccionAnterior){
+        seccionAnterior.classList.remove('mostrar-seccion');
+    }
+
     const seccionActual = document.querySelector(`#paso-${pagina}`);
     seccionActual.classList.add('mostrar-seccion');
 
+    const tabAnterior = document.querySelector('.botones .actual');
+    if (tabAnterior){
+        tabAnterior.classList.remove('actual');
+    }
+
     const tab = document.querySelector(`[data-paso="${pagina}"]`);
     tab.classList.add('actual');
+}
+
+function paginaAnterior(){
+    const paginaAnterior = document.querySelector('#anterior');
+
+    paginaAnterior.addEventListener('click', () => {
+        pagina--
+        botonesPaginador();
+    });
+}
+
+function paginaSiguiente(){
+    const paginaSiguiente = document.querySelector('#siguiente');
+
+    paginaSiguiente.addEventListener('click', () => {
+        pagina++
+        botonesPaginador();
+    });
+}
+
+function botonesPaginador(){
+    const paginaSiguiente = document.querySelector('#siguiente');
+    const paginaAnterior = document.querySelector('#anterior');
+
+    if(pagina === 1){
+        paginaAnterior.classList.add('ocultar');
+    }else if(pagina === 3){
+        paginaSiguiente.classList.add('ocultar');        
+        paginaAnterior.classList.remove('ocultar');
+    } else {
+        paginaSiguiente.classList.remove('ocultar');        
+        paginaAnterior.classList.remove('ocultar');
+    }
+
+    mostrarSeccion();
 }
 
 function cambiarSeccion(){
@@ -31,19 +98,9 @@ function cambiarSeccion(){
             
             pagina = parseInt(e.target.dataset.paso);
 
-            //Elimina mostrar-seccion de la sección anterior
-            document.querySelector('.mostrar-seccion').classList.remove('mostrar-seccion');
-            
-            //Agrega mostrar-seccion donde dimos click
-            const seccion = document.querySelector(`#paso-${pagina}`);
-            seccion.classList.add('mostrar-seccion');
+            mostrarSeccion();
 
-            //Elimina la clase de actual en el tab anterior
-            document.querySelector('.botones .actual').classList.remove('actual');
-
-            //Agrega la clase de actual en el nuevo tab
-            const tab= document.querySelector(`[data-paso="${pagina}"]`);
-            tab.classList.add('actual');
+            botonesPaginador();
         })
     })
 }
@@ -127,3 +184,25 @@ function seleccionarServicio(e){
     }
 }
 
+function mostrarResumen() {
+    //Destructuring
+    const { nombre, fecha, hora, servicios } = cita;
+
+    //Seleccionar el resumen 
+    const resumenDiv = document.querySelector('.contenido-resumen');
+
+    //Validación de Objeto
+
+
+
+    if(Object.values(cita).includes('')){
+        //console.log('Objeto vacio');
+
+        const noServicios = document.createElement('P');
+        noServicios.textContent = 'Faltan datos de Servicios, hora, fecha o nombre';
+
+        noServicios.classList.add('invalidar-cita');
+
+        resumenDiv.appendChild(noServicios);
+    }
+}

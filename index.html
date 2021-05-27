@@ -52,7 +52,30 @@
         <section id="paso-2" class="cita">
             <section class="titulo">
                 <h2>Tus datos y cita</h2>
+                <p>Coloca tus datos y fecha de tu cita</p>
             </section>
+
+            <form action="">
+                <div class="container">
+                    <div class="form-group row">
+                        <label for="nombre" class="col-md-2">Nombre: </label>
+                        <input type="text" class="form-control col-md-10" id="nombre" aria-describedby="nombreHelp" placeholder="Tu Nombre">
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label for="fecha" class="col-md-2">Fecha: </label>
+                        <input type="date" class="form-control col-md-10" id="fecha" aria-describedby="fechalHelp">
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="hora" class="col-md-2">Hora: </label>
+                        <input type="time" class="form-control col-md-10" id="hora" aria-describedby="horaHelp">
+                    </div>
+
+
+                    
+                   
+            </form>
         </section>
 
         <section id="paso-3" class="resumen">
@@ -60,6 +83,22 @@
                 <h2>Resumen</h2>
             </section>
         </section>
+
+        <section class="paginacion">
+            <div class="container">
+
+                <div class="row as-centrado">
+                    <div class="col-md-5 anterior">
+                        <button id="anterior" type="button" class="primer-boton btn btn-primary">&laquo; Anterior</button>
+                    </div>
+
+                    <div class="col-md-5 siguiente">
+                        <button id="siguiente" type="button" class="primer-boton btn btn-primary">Siguiente &raquo;</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </section>
 </body>
 </html>
