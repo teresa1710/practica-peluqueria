@@ -31,7 +31,7 @@ function iniciarApp(){
     botonesPaginador();
 
     //Resumen de la cita verificacion de vacio
-    mostrarResumen();
+    //mostrarResumen();
 
 }
 
@@ -179,10 +179,42 @@ function seleccionarServicio(e){
     if(elemento.classList.contains('seleccionado')){
         elemento.classList.remove('seleccionado');
 
+        const id = parseInt (elemento.dataset.idServicio);
+
+        eliminarServicio(id);
+
     }else{
         elemento.classList.add('seleccionado');
+        //console.log(elemento.firstElementChild.nextElementSibling.textContent);
+
+        servicioObj = {
+            id: parseInt(elemento.dataset.idServicio),
+            nombre: elemento.firstElementChild.textContent,
+            precio: elemento.firstElementChild.nextElementSibling.textContent
+
+        }
+
+        //console.log(servicioObj);
+        agregarServicio(servicioObj);
     }
 }
+
+function eliminarServicio(id){
+    //console.log ('Eliminando . . . ' + id);
+
+    const {servicios} = cita;
+    cita.servicios = servicios.filter(servicio => servicio.id !== id);
+    console.log(cita);
+}
+
+function agregarServicio(servicioObj){
+    const {servicios} = cita;
+
+    cita.servicios = [...servicios, servicioObj];
+    
+    console.log(cita);
+}
+
 
 function mostrarResumen() {
     //Destructuring
@@ -197,12 +229,14 @@ function mostrarResumen() {
 
     if(Object.values(cita).includes('')){
         //console.log('Objeto vacio');
-
         const noServicios = document.createElement('P');
+
         noServicios.textContent = 'Faltan datos de Servicios, hora, fecha o nombre';
 
         noServicios.classList.add('invalidar-cita');
 
         resumenDiv.appendChild(noServicios);
+
+        return;
     }
 }
