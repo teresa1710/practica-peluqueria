@@ -1,4 +1,3 @@
-$(document).ready(function(){
     let pagina = 1;
 
     const cita= {
@@ -36,6 +35,7 @@ $(document).ready(function(){
 
         nombreCita();
 
+        fechaCita();
     }
 
     function mostrarSeccion(){
@@ -246,22 +246,30 @@ $(document).ready(function(){
 
     function nombreCita(){
         const nombreInput = document.querySelector('#nombre');
-        
-        nombreInput.addEventListener('input', e =>{
-            const nombreTexto = e.target.value.trim();
 
-            //Validacion 
+        nombreInput.addEventListener('input', e => {
+        const nombreTexto = e.target.value.trim();
 
-            if(nombreTexto === '' || nombreTexto.length < 3){
-                mostrarAlerta('Nombre no valido', 'error');
-            }else {
-                cita.nombre = nombreTexto;
+        // Validación de que nombreTexto debe tener algo
+        if( nombreTexto === '' || nombreTexto.length < 3 ) {
+            mostrarAlerta('Nombre no valido', 'error');
+        } else {
+            const alerta = document.querySelector('.alerta');
+            if(alerta) {
+                alerta.remove();
             }
-
-        });
+            cita.nombre = nombreTexto;
+        }
+    });
     }
 
     function mostrarAlerta(mensaje, tipo){
+
+        const alertaPrevia = document.querySelector('.alerta');
+        if(alertaPrevia){
+            return;
+        }
+
 
         const alerta= document.createElement('DIV');
         alerta.textContent = mensaje;
@@ -273,5 +281,29 @@ $(document).ready(function(){
 
         const formulario = document.querySelector('.formulario');
         formulario.appendChild( alerta );
+
+        setTimeout(() => {
+            alerta.remove();
+        }, 3000);
     }
-})
+
+function fechaCita(){
+    const fechaInput = document.querySelector('#fecha');
+    fechaInput.addEventListener('input', e=> {
+
+        const dia = new Date(e.target.value).getUTCDay();  
+        
+        if([0,6].includes(dia)){
+            //console.log('Seleccionaste Sabado o Domingo y no trabajamos');
+            
+
+            e.preventDefault();
+            fechaInput.value = '';
+            mostrarAlerta('Seleccionaste Sabado o Domingo y no trabajamos', 'error');
+
+        }else{
+            cita.fecha = fechaInput.value
+            
+        }
+    })
+}
