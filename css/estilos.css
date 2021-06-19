@@ -179,3 +179,20 @@ body {
     margin-bottom: 10px;
 }
 
+.main .resumen .precio{
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.main .resumen .titulo-resumen{
+    overflow: hidden;
+    text-align: center;
+    font-size: 25px;
+    text-decoration: underline;
+    margin-top: 10px;
+}
+
+.main .resumen .cantidad-pagar{
+    font-size: 30px;
+    font-size: bold;
+}
