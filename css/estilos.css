@@ -145,3 +145,37 @@ body {
     width: 40%;
     
 }
+
+.main .resumen p{
+    font-size: 20px;
+    text-align: center;
+    color: #fff;
+    padding: 10px;
+}
+
+.main .resumen{
+    background-color:  #1b76ff;
+    margin-bottom: 30px;
+    width: 20%;
+    border-radius: 20px;
+}
+
+
+.main .resumen span{
+    font-weight: bold;
+}
+
+.main .resumen .contenedor-servicio p{
+    margin:0;
+    padding: 0;
+}
+
+.main .resumen .contenedor-servicio{
+    margin-bottom: 10px;
+    border-bottom: 1px solid #aeb4be;
+}
+
+.main .resumen-servicios{
+    margin-bottom: 10px;
+}
+

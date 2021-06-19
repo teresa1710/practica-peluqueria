@@ -31,11 +31,15 @@
         botonesPaginador();
 
         //Resumen de la cita verificacion de vacio
-        //mostrarResumen();
+        mostrarResumen();
 
         nombreCita();
 
         fechaCita();
+
+        horaCita();
+
+        deshabilitarFechaAnterior();
     }
 
     function mostrarSeccion(){
@@ -84,6 +88,8 @@
         }else if(pagina === 3){
             paginaSiguiente.classList.add('ocultar');        
             paginaAnterior.classList.remove('ocultar');
+
+            mostrarResumen(); 
         } else {
             paginaSiguiente.classList.remove('ocultar');        
             paginaAnterior.classList.remove('ocultar');
@@ -173,10 +179,10 @@
 
         if(e.target.tagName === 'P'){
             elemento = e.target.parentElement;
-            console.log(elemento);
+            //console.log(elemento);
         }else{
             elemento = e.target;
-            console.log(elemento);
+            //console.log(elemento);
         }
 
         if(elemento.classList.contains('seleccionado')){
@@ -207,7 +213,7 @@
 
         const {servicios} = cita;
         cita.servicios = servicios.filter(servicio => servicio.id !== id);
-        console.log(cita);
+        //console.log(cita);
     }
 
     function agregarServicio(servicioObj){
@@ -215,7 +221,7 @@
 
         cita.servicios = [...servicios, servicioObj];
         
-        console.log(cita);
+        //console.log(cita);
     }
 
 
@@ -224,11 +230,11 @@
         const { nombre, fecha, hora, servicios } = cita;
 
         //Seleccionar el resumen 
-        const resumenDiv = document.querySelector('.contenido-resumen');
+        const resumenDiv = document.querySelector('.resumen');
 
-        //Validación de Objeto
-
-
+        while(resumenDiv.firstChild){
+            resumenDiv.removeChild(resumenDiv.firstChild);
+        }
 
         if(Object.values(cita).includes('')){
             //console.log('Objeto vacio');
@@ -241,7 +247,52 @@
             resumenDiv.appendChild(noServicios);
 
             return;
+            
         }
+            //console.log('Todos los datos correctos, a continuacion información');
+
+            const nombreCita=document.createElement('P');
+            nombreCita.innerHTML = `<span> Nombre: </span> ${nombre}`;
+
+            const fechaCita = document.createElement('P');
+            fechaCita.innerHTML = `<span> Fecha: </span> ${fecha}`;
+
+            const horaCita = document.createElement('P');
+            horaCita.innerHTML = `<span> Hora: </span> ${hora}`;
+
+            const serviciosCita = document.createElement('DIV');
+            serviciosCita.classList.add ('resumen-servicios');
+
+
+            servicios.forEach(servicio =>{
+
+                const {nombre, precio } = servicio;
+
+                const contenedorServicio = document.createElement('DIV');
+                contenedorServicio.classList.add('contenedor-servicio');
+
+                const textoServicio = document.createElement('P');
+                textoServicio.textContent = nombre ;
+
+                const precioServicio = document.createElement('P');
+                precioServicio.textContent = precio;
+
+                contenedorServicio.appendChild(textoServicio);
+                contenedorServicio.appendChild(precioServicio);
+
+                serviciosCita.appendChild(contenedorServicio);
+
+
+
+            })
+
+            resumenDiv.appendChild(nombreCita);
+            resumenDiv.appendChild(fechaCita);
+            resumenDiv.appendChild(horaCita);
+
+            resumenDiv.appendChild(serviciosCita);
+
+        
     }
 
     function nombreCita(){
@@ -263,7 +314,7 @@
     });
     }
 
-    function mostrarAlerta(mensaje, tipo){
+function mostrarAlerta(mensaje, tipo){
 
         const alertaPrevia = document.querySelector('.alerta');
         if(alertaPrevia){
@@ -294,9 +345,8 @@ function fechaCita(){
         const dia = new Date(e.target.value).getUTCDay();  
         
         if([0,6].includes(dia)){
-            //console.log('Seleccionaste Sabado o Domingo y no trabajamos');
             
-
+            //console.log('Seleccionaste Sabado o Domingo y no trabajamos');
             e.preventDefault();
             fechaInput.value = '';
             mostrarAlerta('Seleccionaste Sabado o Domingo y no trabajamos', 'error');
@@ -307,3 +357,47 @@ function fechaCita(){
         }
     })
 }
+
+function horaCita(){
+    const horaInput = document.querySelector('#hora');
+
+    horaInput.addEventListener('input', e=> {
+        const horaCita = e.target.value;
+        const hora = horaCita.split(':');
+
+        if (hora [0]< 10 || hora[0] > 18){
+            mostrarAlerta('Abrimos de 10:00 am a 6:00 pm', 'error');
+            setTimeout(() => {
+                horaInput.value = '';
+            }, 3000);
+        }else{
+            cita.hora = horaCita;
+        }
+    })
+}
+
+function deshabilitarFechaAnterior (){
+    const inputFecha = document.querySelector('#fecha');
+
+    //console.log (inputFecha);
+    
+    const fechaAhora = new Date();
+
+    //console.log(fechaAhora);
+
+    const year = fechaAhora.getFullYear();
+    const mes = fechaAhora.getMonth() + 1;
+    const dia = fechaAhora.getDate() + 1;
+
+    if (mes == 1 || mes == 2 || mes == 3 || mes == 4 || mes == 5 || mes == 6 || mes == 7 || mes == 8 || mes == 9){
+        const fechaDeshabilitar = `${year}-0${mes}-${dia}`;
+        inputFecha.min = fechaDeshabilitar;
+    } else {
+        const fechaDeshabilitar = `${year}-${mes}-${dia}`;
+        inputFecha.min = fechaDeshabilitar;
+    }
+
+    
+
+}
+
